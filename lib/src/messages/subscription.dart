@@ -95,3 +95,43 @@ class Subscription extends Message {
   @override
   Map<String, dynamic> toJson() => _$SubscriptionToJson(this);
 }
+
+enum Feedback {
+  // ignore: constant_identifier_names
+  too_expensive,
+  // ignore: constant_identifier_names
+  missing_features,
+  // ignore: constant_identifier_names
+  switched_service,
+  unused,
+  // ignore: constant_identifier_names
+  customer_service,
+  // ignore: constant_identifier_names
+  too_complex,
+  // ignore: constant_identifier_names
+  low_quality,
+  other,
+}
+
+@JsonSerializable()
+class CancellationDetails extends Message {
+  /// Additional comments about why the user canceled
+  /// the subscription, if the subscription was cancelled
+  /// explicitly by the user.
+  final String? comment;
+
+  /// The customer submitted reason for why they cancelled,
+  /// if the subscription was cancelled explicitly by the user.
+  final Feedback? feedback;
+
+  CancellationDetails({
+    this.comment,
+    this.feedback,
+  });
+
+  factory CancellationDetails.fromJson(Map<String, dynamic> json) =>
+      _$CancellationDetailsFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$CancellationDetailsToJson(this);
+}

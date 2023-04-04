@@ -282,10 +282,10 @@ Map<String, dynamic> _$SubscriptionEventToJson(SubscriptionEvent instance) =>
     <String, dynamic>{
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
-      'type': instance.type,
       'data': instance.data.toJson(
         (value) => value.toJson(),
       ),
+      'type': instance.type,
     };
 
 const _$_EventObjectEnumMap = {
@@ -305,10 +305,10 @@ Map<String, dynamic> _$CustomerEventToJson(CustomerEvent instance) =>
     <String, dynamic>{
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
-      'type': instance.type,
       'data': instance.data.toJson(
         (value) => value.toJson(),
       ),
+      'type': instance.type,
     };
 
 ChargeEvent _$ChargeEventFromJson(Map<String, dynamic> json) => ChargeEvent(
@@ -323,10 +323,10 @@ Map<String, dynamic> _$ChargeEventToJson(ChargeEvent instance) =>
     <String, dynamic>{
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
-      'type': instance.type,
       'data': instance.data.toJson(
         (value) => value.toJson(),
       ),
+      'type': instance.type,
     };
 
 PaymentIntentEvent _$PaymentIntentEventFromJson(Map<String, dynamic> json) =>
@@ -343,10 +343,10 @@ Map<String, dynamic> _$PaymentIntentEventToJson(PaymentIntentEvent instance) =>
     <String, dynamic>{
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
-      'type': instance.type,
       'data': instance.data.toJson(
         (value) => value.toJson(),
       ),
+      'type': instance.type,
     };
 
 RefundEvent _$RefundEventFromJson(Map<String, dynamic> json) => RefundEvent(
@@ -361,10 +361,10 @@ Map<String, dynamic> _$RefundEventToJson(RefundEvent instance) =>
     <String, dynamic>{
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
-      'type': instance.type,
       'data': instance.data.toJson(
         (value) => value.toJson(),
       ),
+      'type': instance.type,
     };
 
 CheckoutSessionEvent _$CheckoutSessionEventFromJson(
@@ -383,10 +383,10 @@ Map<String, dynamic> _$CheckoutSessionEventToJson(
     <String, dynamic>{
       'object': _$_EventObjectEnumMap[instance.object]!,
       'id': instance.id,
-      'type': instance.type,
       'data': instance.data.toJson(
         (value) => value.toJson(),
       ),
+      'type': instance.type,
     };
 
 PaymentIntent _$PaymentIntentFromJson(Map<String, dynamic> json) =>
@@ -1091,6 +1091,37 @@ const _$_SubscriptionObjectEnumMap = {
   _SubscriptionObject.subscription: 'subscription',
 };
 
+CancellationDetails _$CancellationDetailsFromJson(Map<String, dynamic> json) =>
+    CancellationDetails(
+      comment: json['comment'] as String?,
+      feedback: $enumDecodeNullable(_$FeedbackEnumMap, json['feedback']),
+    );
+
+Map<String, dynamic> _$CancellationDetailsToJson(CancellationDetails instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('comment', instance.comment);
+  writeNotNull('feedback', _$FeedbackEnumMap[instance.feedback]);
+  return val;
+}
+
+const _$FeedbackEnumMap = {
+  Feedback.too_expensive: 'too_expensive',
+  Feedback.missing_features: 'missing_features',
+  Feedback.switched_service: 'switched_service',
+  Feedback.unused: 'unused',
+  Feedback.customer_service: 'customer_service',
+  Feedback.too_complex: 'too_complex',
+  Feedback.low_quality: 'low_quality',
+  Feedback.other: 'other',
+};
+
 SubscriptionItem _$SubscriptionItemFromJson(Map<String, dynamic> json) =>
     SubscriptionItem(
       object: $enumDecode(_$_SubscriptionItemObjectEnumMap, json['object']),
@@ -1110,3 +1141,29 @@ Map<String, dynamic> _$SubscriptionItemToJson(SubscriptionItem instance) =>
 const _$_SubscriptionItemObjectEnumMap = {
   _SubscriptionItemObject.subscription_item: 'subscription_item',
 };
+
+CancelSubscriptionRequest _$CancelSubscriptionRequestFromJson(
+        Map<String, dynamic> json) =>
+    CancelSubscriptionRequest(
+      subscription: json['subscription'] as String,
+      cancellationDetails: json['cancellation_details'] == null
+          ? null
+          : CancellationDetails.fromJson(
+              json['cancellation_details'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$CancelSubscriptionRequestToJson(
+    CancelSubscriptionRequest instance) {
+  final val = <String, dynamic>{
+    'subscription': instance.subscription,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('cancellation_details', instance.cancellationDetails?.toJson());
+  return val;
+}
